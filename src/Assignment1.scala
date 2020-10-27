@@ -46,11 +46,13 @@ object Assignment1 {
     println("\nTask 10")
     print("a. Returning 'None' for a non-existent map key - ")
     val str: String = "sandwich"
-    println(s"corresponding value for '$str' - " + goods.get(str))
-    print(s"b. Using pattern matching to return message for a non-existent map key: value for '$str' is - " + optionViaPattern(goods.get(str)))
+    val getValue = goods.get(str)
+    println(s"corresponding value for '$str' - " + getValue)
+    println(s"b. Using pattern matching to return message for a non-existent map key: value for '$str' is - " + optionViaPattern(getValue))
+    println(getValue.getOrElse("No such entry")) //Using getOrElse function to return default string for non-existing value
   }
 
-  def getWeekdays(weekdays: List[String]): String = {
+  def getWeekdays(weekdays: List[String]): String = { //task 1a. Comma is not added after the day, if it the last one in the list
     var str: String = ""
     for (weekday <- weekdays) {
       if (!weekday.equals(weekdays.last)) {
@@ -62,7 +64,7 @@ object Assignment1 {
     str
   }
 
-  def getSDays(weekdays: List[String]): String = {
+  def getSDays(weekdays: List[String]): String = { //task 1b. Comma is not added after the day, if it the last one in the list
     var str: String = ""
     for (weekday <- weekdays if weekday.startsWith("S")) {
       if (!weekday.equals(weekdays.last)) {
@@ -74,7 +76,7 @@ object Assignment1 {
     str
   }
 
-  def getWeekdaysViaWhile(weekdays: List[String]): String = {
+  def getWeekdaysViaWhile(weekdays: List[String]): String = { //task 1c. Comma is not added after the day, if it the last one in the list
     var str: String = ""
     var index = 0
     while (index < weekdays.length) {
@@ -89,7 +91,7 @@ object Assignment1 {
     str
   }
 
-  def getWeekdaysRecursion(weekdays: List[String]): String = {
+  def getWeekdaysRecursion(weekdays: List[String]): String = { //task 2a. Comma is not added after the day, if it the last one in the list
     if (weekdays.isEmpty)
       ""
     else if (!weekdays.head.equals(weekdays.last)) {
@@ -100,7 +102,7 @@ object Assignment1 {
     }
   }
 
-  def getWeekdaysRecursionRev(weekdays: List[String]): String = {
+  def getWeekdaysRecursionRev(weekdays: List[String]): String = { //task 2b. Comma is not added after the day, if it the last one in the list
     if (weekdays.isEmpty)
       ""
     else if (!weekdays.head.equals(weekdays.last)) {
@@ -111,7 +113,7 @@ object Assignment1 {
     }
   }
 
-  def getWeekdaysTailRec(weekdays: List[String]): String = {
+  def getWeekdaysTailRec(weekdays: List[String]): String = { //task 3. Comma is not added after the day, if it the last one in the list
     @tailrec def tailRec(acc: String, list: List[String]): String = {
       if (list.isEmpty)
         acc
@@ -122,37 +124,37 @@ object Assignment1 {
     tailRec("", weekdays)
   }
 
-  def getFoldLDays(weekdays : List[String]) : String = {
+  def getFoldLDays(weekdays : List[String]) : String = { //task 4a
     weekdays.foldLeft("")((m, n ) => m + ", " +n)
   }
 
-  def getFoldRDays(weekdays : List[String]) : String = {
+  def getFoldRDays(weekdays : List[String]) : String = { //task 4b
     weekdays.foldRight("")((m, n ) => n + ", " +m)
   }
 
-  def foldLSDays(weekdays : List[String]) : String = {
+  def foldLSDays(weekdays : List[String]) : String = { //task 4c
     weekdays.foldLeft(""){
       case (acc, s"S$nme") => acc + s"S$nme" + ", "
       case (acc, _ ) => acc
     }
   }
 
-  def getIncrementedInts(ints: List[Int]): List[Int] = {
+  def getIncrementedInts(ints: List[Int]): List[Int] = { //task 6
     ints.map(n => n+1)
   }
 
-  def getReducedPrices(goods : Map[String, Double]) : Map [String, Double] = {
+  def getReducedPrices(goods : Map[String, Double]) : Map [String, Double] = { //task 5
     goods.map(kv => (kv._1, kv._2 * 0.9))
   }
 
-  def getAbsoluteValues(natNumbers: List[Int]) : List[Int] = {
+  def getAbsoluteValues(natNumbers: List[Int]) : List[Int] = { //task 7
     val x = natNumbers.filter { num =>
         num >= -5 && num <= 12
       }
     x.map(_.abs)
   }
 
-  def printTuple(tuple : (Int, String, Double)) {
+  def printTuple(tuple : (Int, String, Double)) { //task 8
     print("Iterating through tuple: ")
     tuple.productIterator.foreach {
       i => print(i + ", ")
@@ -162,14 +164,13 @@ object Assignment1 {
     print(tuple._1, tuple._2, tuple._3)
   }
 
-  def removeZeroes(list: List[Int]): List[Int] = list match {
+  def removeZeroes(list: List[Int]): List[Int] = list match { //task 9
     case x :: xs if x == 0 => removeZeroes(xs)
     case x :: xs => x :: removeZeroes(xs)
     case _ => Nil
   }
 
-  def optionViaPattern(z: Option[Double]): Any = z match
-  {
+  def optionViaPattern(z: Option[Double]): Any = z match { //task 10
     case Some(s) => s
     case None => "no such key"
   }
