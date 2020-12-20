@@ -2,6 +2,11 @@ import scala.annotation.tailrec
 
 object Assignment1 {
   def main(args: Array[String]): Unit = {
+
+    /*1.	Create a 7 element list with names of days of the week. Create a function returning a string with comma-separated list elements using:
+    a. for loop
+    b. for loop, the string should contain only days with names starting with “S”
+    c. while loop*/
     val weekdays: List[String] = List("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
     val ints: List[Int] = List(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
     val goods = Map("rock" -> 15.0, "paper" -> 10.0, "scissors" -> 20.0, "wine" -> 45.0, "cheese" -> 58.0)
@@ -91,6 +96,9 @@ object Assignment1 {
     str
   }
 
+  /*2.	For list from #1 create a function returning a string with comma-separated list elements using:
+  a. recursive function
+  b. recursive function, list elements should be printed from last to first*/
   def getWeekdaysRecursion(weekdays: List[String]): String = { //task 2a. Comma is not added after the day, if it the last one in the list
     if (weekdays.isEmpty)
       ""
@@ -113,7 +121,8 @@ object Assignment1 {
     }
   }
 
-  def getWeekdaysTailRec(weekdays: List[String]): String = { //task 3. Comma is not added after the day, if it the last one in the list
+  /*3. Create a tail-recursive function returning a comma-separated string using list from #1*/
+  def getWeekdaysTailRec(weekdays: List[String]): String = { //Comma is not added after the day, if it the last one in the list
     @tailrec def tailRec(acc: String, list: List[String]): String = {
       if (list.isEmpty)
         acc
@@ -124,6 +133,10 @@ object Assignment1 {
     tailRec("", weekdays)
   }
 
+  /*4.	For list from #1 create a function returning a string with comma-separated list elements using:
+  a. foldl
+  b. foldr
+  c. foldl, the string should contain only days with names starting with “S”*/
   def getFoldLDays(weekdays : List[String]) : String = { //task 4a
     weekdays.foldLeft("")((m, n ) => m + ", " +n)
   }
@@ -139,22 +152,27 @@ object Assignment1 {
     }
   }
 
-  def getIncrementedInts(ints: List[Int]): List[Int] = { //task 6
-    ints.map(n => n+1)
-  }
-
+  /*5. Create a map with several product names (keys) and their prices (values). Based on this create a second map with 10% price reduction. Use collection mapping*/
   def getReducedPrices(goods : Map[String, Double]) : Map [String, Double] = { //task 5
     goods.map(kv => (kv._1, kv._2 * 0.9))
   }
 
-  def getAbsoluteValues(natNumbers: List[Int]) : List[Int] = { //task 7
+  /*6. Define a function accepting a list of integers and returning another list with all values increased by 1. Use collection mapping*/
+  def getIncrementedInts(ints: List[Int]): List[Int] = {
+    ints.map(n => n+1)
+  }
+
+  /*7. Create a function accepting a list of real numbers and returning a new list,
+  containing absolute values of elements of original list with values in the <-5,12> range*/
+  def getAbsoluteValues(natNumbers: List[Int]) : List[Int] = {
     val x = natNumbers.filter { num =>
         num >= -5 && num <= 12
       }
     x.map(_.abs)
   }
 
-  def printTuple(tuple : (Int, String, Double)) { //task 8
+  /*8. Define a function accepting tuple with 3 values of different types and printing it*/
+  def printTuple(tuple : (Int, String, Double)) {
     print("Iterating through tuple: ")
     tuple.productIterator.foreach {
       i => print(i + ", ")
@@ -164,13 +182,15 @@ object Assignment1 {
     print(tuple._1, tuple._2, tuple._3)
   }
 
-  def removeZeroes(list: List[Int]): List[Int] = list match { //task 9
+  /*9. Write function accepting a list and resulting the same list without values equal to 0. Do this using recursion.*/
+  def removeZeroes(list: List[Int]): List[Int] = list match {
     case x :: xs if x == 0 => removeZeroes(xs)
     case x :: xs => x :: removeZeroes(xs)
     case _ => Nil
   }
 
-  def optionViaPattern(z: Option[Double]): Any = z match { //task 10
+  /*10.	Present the use of Option (come up with an example, use at least 2 different Option methods)*/
+  def optionViaPattern(z: Option[Double]): Any = z match {
     case Some(s) => s
     case None => "no such key"
   }
